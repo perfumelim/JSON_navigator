@@ -16,16 +16,22 @@ function ItemList({ objKeys }) {
 export default ItemList;
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
+  margin-left: 27px;
   width: 380px;
 `;
 
-const StyledUl = styled.ul``;
+const StyledUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+`;
 
 const StyledLi = styled.li`
-  display: flex;
-  height: 2.25rem;
-  gap: 0.75rem;
-  align-items: center;
+  padding: 10px;
+  font-size: 20px;
+  background-color: #f1ddbf;
+  width: 100%;
+  border-radius: 12px;
 `;

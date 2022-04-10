@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import ItemList from "components/itemList";
 
 function App() {
   const [fileData, setFileData] = useState({
@@ -21,23 +23,66 @@ function App() {
 
   useEffect(() => {
     const intermediateFormat = Object.values(fileData.fileContent).join("");
-    console.log("should be valid", intermediateFormat);
     setObjKeys(Object.keys(JSON.parse(intermediateFormat)));
-
-    console.log("key", objKeys);
-    console.log("file Data", fileData.fileContent);
   }, [fileData]);
 
   return (
-    <div className="App">
-      <form id="upload">
-        <label htmlFor="file">File to upload</label>
+    <Container>
+      <FileBox>
+        <StyledLabel htmlFor="file">🔎</StyledLabel>
         <input type="file" id="file" accept=".json" onChange={onUpload} />
-        <button>Upload</button>
-      </form>
-      <p>{objKeys}</p>
-    </div>
+      </FileBox>
+      <ItemList objKeys={objKeys} />
+    </Container>
   );
 }
 
 export default App;
+
+const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20vh;
+`;
+
+const FileBox = styled.div`
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-image: linear-gradient(to bottom, #525e75 50%, #f1ddbf 50%);
+  background-size: 100% 200%;
+  transition: all 1s;
+  color: #ffffff;
+  font-size: 100px;
+
+  &:hover {
+    background-position: 0 -100%;
+
+    color: #525e75;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+`;
+
+const StyledLabel = styled.label`
+  display: inline-block;
+  color: #fff;
+  vertical-align: middle;
+  cursor: pointer;
+`;

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ItemList from "components/itemList";
-import { useFormat } from "hooks/useFormat";
+import { convertObj } from "utils/convertObj";
 
 function Main() {
   const [fileData, setFileData] = useState({
     file: "",
     fileContent: "{}",
   });
-  const [objKeys, setObjKeys] = useState([]);
-  const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [flatObj, setFlatObj] = useState({});
+  //   const [isFileUploaded, setIsFileUploaded] = useState(false);
 
   const onUpload = (e) => {
     const file = e.target.files[0];
@@ -17,7 +17,7 @@ function Main() {
     reader.readAsText(file);
     reader.onload = () => {
       setFileData({ fileName: file.name, fileContent: reader.result });
-      setIsFileUploaded(true);
+      //   setIsFileUploaded(true);
     };
     reader.onerror = () => {
       console.log("file error", reader.error);
@@ -26,7 +26,7 @@ function Main() {
 
   useEffect(() => {
     const intermediateFormat = Object.values(fileData.fileContent).join("");
-    setObjKeys(Object.keys(JSON.parse(intermediateFormat)));
+    setFlatObj(convertObj(JSON.parse(intermediateFormat)));
   }, [fileData]);
 
   return (
@@ -38,7 +38,7 @@ function Main() {
           <input type="file" id="file" accept=".json" onChange={onUpload} />
         </FileBox>
       </FileWrapper>
-      {isFileUploaded && <ItemList objKeys={objKeys} />}
+      {/* {isFileUploaded && <ItemList objKeys={flatObj} />} */}
     </Container>
   );
 }

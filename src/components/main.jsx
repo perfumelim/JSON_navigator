@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ItemList from "components/itemList";
+import { useFormat } from "hooks/useFormat";
 
-function App() {
+function Main() {
   const [fileData, setFileData] = useState({
     file: "",
     fileContent: "{}",
@@ -42,7 +43,7 @@ function App() {
   );
 }
 
-export default App;
+export default Main;
 
 const Container = styled.div`
   display: flex;

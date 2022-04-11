@@ -1,20 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SubItem from "./subItem";
 
 function ItemList({ flatObj }) {
-  const onLoadMore = () => {};
+  const [isClicked, setIsClicked] = useState(false);
+  const [selectedValue, setSelectedValue] = useState();
+
+  const onLoadMore = (key) => {
+    const matchValue = flatObj[key];
+    setIsClicked(true);
+    setSelectedValue(matchValue);
+
+    console.log("log", flatObj[key]);
+  };
 
   return (
     <Container>
       <StyledUl>
         {Object.keys(flatObj).map((key) => (
-          <StyledLi key={key}>
-            <button onClick={onLoadMore(key, flatObj)}>
-              <p>{key}</p>
-              <span>{typeof flatObj[key] !== "string" && "▶"}</span>
-            </button>
-          </StyledLi>
+          <>
+            <StyledLi key={key}>
+              <button
+                key={key}
+                onClick={() => {
+                  onLoadMore();
+                }}
+              >
+                <p>{key}</p>
+                <span>{typeof flatObj[key] !== "string" && "▶"}</span>
+              </button>
+            </StyledLi>
+            {isClicked && <p>{selectedValue}</p>}
+          </>
         ))}
       </StyledUl>
     </Container>

@@ -24,8 +24,6 @@ function Main() {
     };
   };
 
-  console.log("is", flatObj.name);
-
   useEffect(() => {
     const intermediateFormat = Object.values(fileData.fileContent).join("");
     setFlatObj(convertObj(JSON.parse(intermediateFormat)));

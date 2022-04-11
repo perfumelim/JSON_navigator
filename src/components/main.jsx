@@ -9,7 +9,7 @@ function Main() {
     fileContent: "{}",
   });
   const [flatObj, setFlatObj] = useState({});
-  //   const [isFileUploaded, setIsFileUploaded] = useState(false);
+  const [isFileUploaded, setIsFileUploaded] = useState(false);
 
   const onUpload = (e) => {
     const file = e.target.files[0];
@@ -17,12 +17,14 @@ function Main() {
     reader.readAsText(file);
     reader.onload = () => {
       setFileData({ fileName: file.name, fileContent: reader.result });
-      //   setIsFileUploaded(true);
+      setIsFileUploaded(true);
     };
     reader.onerror = () => {
       console.log("file error", reader.error);
     };
   };
+
+  console.log("is", flatObj.name);
 
   useEffect(() => {
     const intermediateFormat = Object.values(fileData.fileContent).join("");
@@ -38,7 +40,7 @@ function Main() {
           <input type="file" id="file" accept=".json" onChange={onUpload} />
         </FileBox>
       </FileWrapper>
-      {/* {isFileUploaded && <ItemList objKeys={flatObj} />} */}
+      {isFileUploaded && <ItemList flatObj={flatObj} />}
     </Container>
   );
 }
@@ -57,7 +59,7 @@ const FileWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 380px;
+  width: 360px;
   height: 450px;
   border-radius: 15px;
   background-color: #525e75;

@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import SubItem from "./subItem";
 
-function ItemList({ objKeys }) {
+function ItemList({ flatObj }) {
+  const onLoadMore = () => {};
+
   return (
     <Container>
       <StyledUl>
-        {objKeys.map((item) => (
-          <StyledLi>{item}</StyledLi>
+        {Object.keys(flatObj).map((key) => (
+          <StyledLi key={key}>
+            <button onClick={onLoadMore(key, flatObj)}>
+              <p>{key}</p>
+              <span>{typeof flatObj[key] !== "string" && "▶"}</span>
+            </button>
+          </StyledLi>
         ))}
       </StyledUl>
     </Container>
@@ -17,7 +25,7 @@ export default ItemList;
 
 const Container = styled.div`
   margin-left: 27px;
-  width: 380px;
+  width: 360px;
 `;
 
 const StyledUl = styled.ul`
@@ -30,8 +38,14 @@ const StyledUl = styled.ul`
 
 const StyledLi = styled.li`
   padding: 10px;
-  font-size: 20px;
   background-color: #f1ddbf;
   width: 100%;
   border-radius: 12px;
+
+  button {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    width: 100%;
+  }
 `;
